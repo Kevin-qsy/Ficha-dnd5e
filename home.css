@@ -1,0 +1,197 @@
+/* =========================================================
+   Ficha Prática — HOME
+   ========================================================= */
+
+/* ============ Design tokens ============ */
+:root{
+  --bg: #0f171a;
+  --paper: #ffffff;
+  --ink: #14171a;
+  --muted: #6b7280;
+  --brand: #1f6feb;
+  --accent: #facc15;
+  --danger: #e11d48;
+  --radius: 18px;
+  --shadow: 0 2px 6px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.06);
+}
+
+/* ============ Base ============ */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+
+body{
+  margin: 0;
+  color: var(--ink);
+  font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  background-color: var(--bg);
+  background-image: url("./img/fundo-dados.png");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 220px; /* ajuste o tamanho do padrão */
+}
+
+:focus-visible{ outline: 3px solid #9ac1ff; outline-offset: 2px; }
+
+/* ============ Layout principal (COLUNA MAIS LARGA) ============ */
+.home-stack{
+  min-height: 100svh;
+  width: 92vw;         /* ocupa boa parte da tela */
+  max-width: 720px;    /* << aumente aqui para deixar mais largo */
+  margin: 0 auto;
+  padding: 32px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Em telas bem grandes, dá mais folga ainda */
+@media (min-width: 1200px){
+  .home-stack{ max-width: 840px; }  /* pode ir a 900/960 se quiser ainda maior */
+}
+
+/* ============ Logo ============ */
+.logo-app{
+  width: 96px; height: 96px;
+  border-radius: 16px;
+  object-fit: cover;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+/* ============ Botões ============ */
+.btn{
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform .12s ease;
+}
+.btn:hover{ transform: translateY(-1px); }
+
+.btn-lg{ width: 100%; padding: 14px 16px; font-size: 16px; font-weight: 700; }
+.btn-sm{ padding: 8px 12px; font-size: 14px; }
+.btn-primary{ background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn-ghost{ background: rgba(255,255,255,.85); }
+
+/* ============ Lista de fichas ============ */
+.lista-fichas{
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;   /* mais espaço entre cards */
+}
+
+/* ============ Card da ficha (pill) ============ */
+.pill-card{
+  width: 100%;               /* ocupa toda a largura disponível */
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 16px 16px 16px;
+  min-height: 100px;         /* mais alto e confortável */
+  background: var(--paper);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform .12s ease;
+}
+.pill-card:hover{ transform: translateY(-1px); }
+
+/* Avatar */
+.pill-avatar{
+  width: 76px; height: 76px; flex: 0 0 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(0,0,0,.1);
+  background: #eef2ff;
+  display: grid; place-items: center;
+}
+.pill-avatar img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Texto principal */
+.pill-main{
+  display: grid;
+  row-gap: 6px;          /* mais espaço entre título e meta */
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+.pill-title{
+  font-weight: 800;
+  font-size: 18px; line-height: 1.25;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pill-meta{
+  font-size: 14px; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Ações (★ ⬇ ✕) */
+.pill-actions{
+  display: flex; align-items: center; gap: 10px;
+}
+.btn-icon{
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+  display: grid; place-items: center;
+  font-size: 20px; line-height: 1;
+  cursor: pointer; transition: transform .12s ease;
+}
+.btn-icon:hover{ transform: translateY(-1px); }
+.btn-icon.btn-favorito[aria-pressed="true"]{ background: var(--accent); color: #111; border-color: transparent; }
+.btn-icon.btn-exportar{ color: #0ea5e9; }
+.btn-icon.btn-excluir{ color: var(--danger); border-color: rgba(225,29,72,.25); }
+
+/* ============ Rodapé ============ */
+.import-wrap{ width: 100%; display: flex; justify-content: center; margin-top: 8px; }
+
+/* ============ Responsivo (telinhas) ============ */
+@media (max-width: 480px){
+  .home-stack{ width: 94vw; max-width: 420px; }
+  .pill-card{ min-height: 90px; padding: 14px 12px; gap: 12px; }
+  .pill-avatar{ width: 64px; height: 64px; flex-basis: 64px; }
+  .pill-title{ font-size: 16px; }
+  .btn-icon{ width: 38px; height: 38px; font-size: 18px; }
+}
+
+/* ===== Modal bonitinho ===== */
+.modal-fundo{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 1000;
+}
+.modal-fundo.visivel{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-caixa{
+  background: var(--paper);
+  border-radius: 16px;
+  padding: 24px 22px;
+  box-shadow: var(--shadow);
+  width: min(90%, 360px);
+  text-align: center;
+  animation: aparecer .2s ease;
+}
+@keyframes aparecer{
+  from{ transform: translateY(20px); opacity: 0; }
+  to{ transform: translateY(0); opacity: 1; }
+}
+.modal-titulo{ margin: 0 0 8px; font-size: 18px; font-weight: 700; }
+.modal-msg{ margin: 0 0 20px; color: var(--muted); }
+.modal-botoes{ display: flex; justify-content: center; gap: 10px; }

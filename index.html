@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link rel="stylesheet" href="home.css">
+  <script src="home.js" defer></script>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ficha Prática </title>
+</head>
+<body>
+  <!-- =======================
+       HOME (Minhas Fichas)
+       ======================= -->
+  <section id="home" aria-labelledby="home-title">
+  <div class="home-stack">
+    <!-- LOGO -->
+    <img src="img/logo-kevin.png" alt="Logo do app" class="logo-app" />
+
+    <!-- BOTÃO CRIAR FICHA -->
+    <button id="btn-nova" type="button" class="btn btn-lg btn-primary">
+      + Criar ficha
+    </button>
+
+   <!-- LISTA DE FICHAS (exemplos; depois o JS preenche) -->
+<ul id="lista-fichas" class="lista-fichas">
+
+  <!-- Ficha 1 -->
+  <li class="pill-card" data-id="ex1">
+    <!-- Avatar -->
+    <figure class="pill-avatar">
+      <img src="img/avatar-aramil.png" alt="Retrato de Aramil" />
+    </figure>
+
+    <!-- Conteúdo principal -->
+    <div class="pill-main" role="button" tabindex="0" aria-label="Abrir ficha: Aramil">
+      <span class="pill-title">Aramil</span>
+      <span class="pill-meta">Bardo 5 · Elfo</span>
+    </div>
+
+    <!-- Ações -->
+    <div class="pill-actions" aria-label="Ações da ficha">
+      <button type="button" class="btn-icon btn-favorito" aria-pressed="false" title="Favoritar">★</button>
+      <button type="button" class="btn-icon btn-exportar" title="Exportar">⬇</button>
+      <button type="button" class="btn-icon btn-excluir" title="Excluir">✕</button>
+    </div>
+  </li>
+
+  <!-- Ficha 2 -->
+  <li class="pill-card" data-id="ex2">
+    <!-- Avatar -->
+    <figure class="pill-avatar">
+      <img src="img/avatar-maelis.png" alt="Retrato de Maelis" />
+    </figure>
+
+    <!-- Conteúdo principal -->
+    <div class="pill-main" role="button" tabindex="0" aria-label="Abrir ficha: Maelis">
+      <span class="pill-title">Maelis</span>
+      <span class="pill-meta">Clériga 3 · Humana</span>
+    </div>
+
+    <!-- Ações -->
+    <div class="pill-actions" aria-label="Ações da ficha">
+      <button type="button" class="btn-icon btn-favorito" aria-pressed="true" title="Favoritar">★</button>
+      <button type="button" class="btn-icon btn-exportar" title="Exportar">⬇</button>
+      <button type="button" class="btn-icon btn-excluir" title="Excluir">✕</button>
+    </div>
+  </li>
+
+</ul>
+
+    <!-- BOTÃO CARREGAR FICHA (IMPORTAR) -->
+    <div class="import-wrap">
+      <input id="arquivo-import" type="file" accept="application/json" hidden />
+      <button id="btn-importar" type="button" class="btn btn-sm btn-ghost">
+        Carregar ficha
+      </button>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Template para futuros cards (para quando ligar o JS) -->
+  <template id="tpl-ficha-card">
+    <article class="ficha-card" data-id="">
+      <div class="ficha-main" role="button" tabindex="0" aria-label="">
+        <figure class="ficha-avatar" aria-hidden="true">
+          <img src="" alt="" />
+        </figure>
+
+        <div class="ficha-info">
+          <h2 class="ficha-nome"><span data-nome>Sem nome</span></h2>
+          <p class="ficha-meta"><span data-classe>—</span> <span data-nivel>—</span></p>
+        </div>
+      </div>
+
+      <div class="ficha-actions" aria-label="Ações da ficha">
+        <button type="button" class="btn-favorito" aria-label="Favoritar" aria-pressed="false" title="Favoritar">★</button>
+        <button type="button" class="btn-exportar" aria-label="Exportar" title="Exportar">⬇</button>
+        <button type="button" class="btn-excluir" aria-label="Excluir" title="Excluir">✕</button>
+      </div>
+    </article>
+  </template>
+</body>
+</html>
