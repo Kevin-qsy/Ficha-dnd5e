@@ -2,7 +2,10 @@
 <html lang="pt-BR">
 <head>
   <link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="ficha.css">
+
   <script src="home.js" defer></script>
+  <script src="ficha.js" defer></script>
 
 
   <meta charset="utf-8" />
@@ -102,5 +105,341 @@
       </div>
     </article>
   </template>
+
+<!-- =========================
+     TELA: FICHA (oculta por padrão)
+     ========================= -->
+<section id="tela-ficha" class="tela" aria-labelledby="ficha-title">
+
+  <!-- Barra superior -->
+  <header class="ficha-topbar" role="toolbar" aria-label="Ações da Ficha">
+    <button id="btn-voltar-home" class="btn btn-ghost" type="button" aria-label="Voltar para Home">← Home</button>
+    <h1 id="ficha-title" class="ficha-title">Ficha do Personagem</h1>
+    <div class="ficha-actions">
+      <button id="btn-salvar-ficha" class="btn btn-primary" type="button">Salvar</button>
+      <button id="btn-exportar-ficha" class="btn" type="button">Exportar</button>
+    </div>
+  </header>
+
+  <!-- Cabeçalho (3 blocos) -->
+  <section class="ficha-head" aria-label="Cabeçalho do Personagem">
+    <!-- Info básica -->
+    <div class="box box-info-basica">
+      <label class="lbl" for="inp-classe">Classe</label>
+      <input id="inp-classe" name="classe" type="text" inputmode="text" placeholder="Ex.: Bardo" autocomplete="off"/>
+
+      <label class="lbl" for="inp-nivel">Nível</label>
+      <input id="inp-nivel" name="nivel" type="number" min="1" value="1" />
+
+      <label class="lbl" for="inp-raca">Raça</label>
+      <input id="inp-raca" name="raca" type="text" placeholder="Ex.: Elfo" autocomplete="off"/>
+    </div>
+
+    <!-- Nome / Criar/Resetar -->
+    <div class="box box-nome">
+  <label class="lbl" for="inp-nome">Nome do personagem</label>
+  <input id="inp-nome" name="nome" type="text" placeholder="Nome..." autocomplete="off"/>
+  <!-- Botão Point Buy -->
+  <button id="btn-point-buy" class="btn btn-primary" type="button" aria-label="Distribuir pontos (Point Buy)">
+    Distribuir Pontos (Point Buy)
+  </button>
+</div>
+
+    <!-- Inventário -->
+    <div class="box box-inventario">
+      <h2 class="sub" id="inv-title">Inventário</h2>
+      <ul id="lista-inv" class="lista-inventario" aria-labelledby="inv-title">
+        <!-- itens via JS -->
+      </ul>
+      <button id="btn-add-item" class="btn btn-sm" type="button">+ Item</button>
+    </div>
+  </section>
+
+  <!-- Atributos + TR -->
+  <section class="ficha-atributos" aria-label="Atributos e Testes de Resistência">
+    <!-- Atributos -->
+    <ul class="grid-atributos" aria-label="Atributos">
+      <li class="attr" data-attr="for">
+        <span class="attr-label">Força</span>
+        <input id="for" type="number" min="1" max="30" step="1" value="10" aria-describedby="for-mod"/>
+        <span id="for-mod" class="mod" aria-label="Modificador">+0</span>
+      </li>
+      <li class="attr" data-attr="des">
+        <span class="attr-label">Destreza</span>
+        <input id="des" type="number" min="1" max="30" step="1" value="10" aria-describedby="des-mod"/>
+        <span id="des-mod" class="mod">+0</span>
+      </li>
+      <li class="attr" data-attr="con">
+        <span class="attr-label">Constituição</span>
+        <input id="con" type="number" min="1" max="30" step="1" value="10" aria-describedby="con-mod"/>
+        <span id="con-mod" class="mod">+0</span>
+      </li>
+      <li class="attr" data-attr="int">
+        <span class="attr-label">Inteligência</span>
+        <input id="int" type="number" min="1" max="30" step="1" value="10" aria-describedby="int-mod"/>
+        <span id="int-mod" class="mod">+0</span>
+      </li>
+      <li class="attr" data-attr="sab">
+        <span class="attr-label">Sabedoria</span>
+        <input id="sab" type="number" min="1" max="30" step="1" value="10" aria-describedby="sab-mod"/>
+        <span id="sab-mod" class="mod">+0</span>
+      </li>
+      <li class="attr" data-attr="car">
+        <span class="attr-label">Carisma</span>
+        <input id="car" type="number" min="1" max="30" step="1" value="10" aria-describedby="car-mod"/>
+        <span id="car-mod" class="mod">+0</span>
+      </li>
+    </ul>
+
+    <!-- Testes de Resistência -->
+    <aside class="box box-tr" aria-labelledby="tr-title">
+      <h3 id="tr-title" class="sub">Testes de Resistência</h3>
+      <ul class="lista-tr">
+        <li><label><input type="checkbox" data-tr="for"> Força</label></li>
+        <li><label><input type="checkbox" data-tr="des"> Destreza</label></li>
+        <li><label><input type="checkbox" data-tr="con"> Constituição</label></li>
+        <li><label><input type="checkbox" data-tr="int"> Inteligência</label></li>
+        <li><label><input type="checkbox" data-tr="sab"> Sabedoria</label></li>
+        <li><label><input type="checkbox" data-tr="car"> Carisma</label></li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- Combate -->
+  <section class="ficha-combate" aria-label="Estatísticas de Combate">
+    <div class="stat stat-ca">
+      <span class="lbl">CA</span>
+      <input id="inp-ca" type="number" min="0" value="10" />
+    </div>
+
+    <div class="stat stat-init">
+      <span class="lbl">Iniciativa</span>
+      <input id="inp-init" type="number" value="0" />
+    </div>
+
+    <div class="stat stat-desl">
+      <span class="lbl">Deslocamento</span>
+      <input id="inp-desl" type="text" placeholder="Ex.: 9 m" />
+    </div>
+
+    <div class="stat stat-pv">
+      <span class="lbl">Pontos de Vida</span>
+      <div class="pv-line">
+        <input id="pv-atual" type="number" placeholder="Atual" />
+        <input id="pv-max"   type="number" placeholder="Máx." />
+        <input id="pv-temp"  type="number" placeholder="Temp." />
+      </div>
+    </div>
+
+    <div class="stat stat-hitdie">
+      <span class="lbl">Dado de Vida</span>
+      <input id="inp-dv" type="text" placeholder="Ex.: 1d8" />
+    </div>
+  </section>
+
+  <!-- ===== Perícias (estilo ficha oficial 5e) ===== -->
+<section id="sess-pericias" class="sessao-lista" aria-labelledby="titulo-pericias">
+  <header class="sessao-head">
+    <h3 id="titulo-pericias" class="sub">Perícias</h3>
+  </header>
+
+  <ul id="lista-pericias" class="skills-list" aria-label="Perícias do personagem">
+    <!-- Cada linha: bolinha (prof), bônus, nome (ATR) -->
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-acro">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Acrobacia">
+      <label class="sk-label" for="sk-acro">Acrobacia <span class="sk-abil">(Des)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-arc">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Arcanismo">
+      <label class="sk-label" for="sk-arc">Arcanismo <span class="sk-abil">(Int)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-atl">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Atletismo">
+      <label class="sk-label" for="sk-atl">Atletismo <span class="sk-abil">(For)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-atu">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Atuação">
+      <label class="sk-label" for="sk-atu">Atuação <span class="sk-abil">(Car)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-ble">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Blefar">
+      <label class="sk-label" for="sk-ble">Blefar <span class="sk-abil">(Car)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-fur">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Furtividade">
+      <label class="sk-label" for="sk-fur">Furtividade <span class="sk-abil">(Des)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-his">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de História">
+      <label class="sk-label" for="sk-his">História <span class="sk-abil">(Int)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-inti">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Intimidação">
+      <label class="sk-label" for="sk-inti">Intimidação <span class="sk-abil">(Car)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-intu">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Intuição">
+      <label class="sk-label" for="sk-intu">Intuição <span class="sk-abil">(Sab)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-inv">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Investigação">
+      <label class="sk-label" for="sk-inv">Investigação <span class="sk-abil">(Int)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-anm">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Lidar com Animais">
+      <label class="sk-label" for="sk-anm">Lidar com Animais <span class="sk-abil">(Sab)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-med">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Medicina">
+      <label class="sk-label" for="sk-med">Medicina <span class="sk-abil">(Sab)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-nat">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Natureza">
+      <label class="sk-label" for="sk-nat">Natureza <span class="sk-abil">(Int)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-perc">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Percepção">
+      <label class="sk-label" for="sk-perc">Percepção <span class="sk-abil">(Sab)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-pers">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Persuasão">
+      <label class="sk-label" for="sk-pers">Persuasão <span class="sk-abil">(Car)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-prest">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Prestidigitação">
+      <label class="sk-label" for="sk-prest">Prestidigitação <span class="sk-abil">(Des)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-rel">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Religião">
+      <label class="sk-label" for="sk-rel">Religião <span class="sk-abil">(Int)</span></label>
+    </li>
+
+    <li class="skill-row">
+      <input class="sk-prof" type="checkbox" id="sk-sob">
+      <input class="sk-bonus" type="text" value="+0" readonly aria-label="Bônus de Sobrevivência">
+      <label class="sk-label" for="sk-sob">Sobrevivência <span class="sk-abil">(Sab)</span></label>
+    </li>
+  </ul>
+</section>
+
+<!-- ===== Ataques e Magias (estilo ficha 5e) ===== -->
+<section id="sess-ataques" class="sessao-lista" aria-labelledby="titulo-ataques">
+  <header class="sessao-head">
+    <h3 id="titulo-ataques" class="sub">Ataques e Magias</h3>
+    <div class="sessao-actions">
+      <button id="btn-add-ataque" class="btn btn-sm" type="button">+ Linha</button>
+    </div>
+  </header>
+
+  <!-- Cabeçalho das colunas -->
+  <div class="atk-head" role="rowgroup" aria-hidden="true">
+    <div class="atk-colname">NOME</div>
+    <div class="atk-colbonus">BÔNUS</div>
+    <div class="atk-coldmg">DANO / TIPO</div>
+  </div>
+
+  <!-- Linhas -->
+  <ul id="lista-ataques" class="atk-list" aria-label="Ataques e magias do personagem">
+    <!-- 3 linhas iniciais -->
+    <li class="atk-row">
+      <input class="atk-nome"  type="text"  placeholder="" aria-label="Nome do ataque">
+      <input class="atk-bonus" type="text"  placeholder="" aria-label="Bônus do ataque">
+      <input class="atk-dano"  type="text"  placeholder="" aria-label="Dano e tipo">
+    </li>
+    <li class="atk-row">
+      <input class="atk-nome"  type="text"  aria-label="Nome do ataque">
+      <input class="atk-bonus" type="text"  aria-label="Bônus do ataque">
+      <input class="atk-dano"  type="text"  aria-label="Dano e tipo">
+    </li>
+    <li class="atk-row">
+      <input class="atk-nome"  type="text"  aria-label="Nome do ataque">
+      <input class="atk-bonus" type="text"  aria-label="Bônus do ataque">
+      <input class="atk-dano"  type="text"  aria-label="Dano e tipo">
+    </li>
+  </ul>
+
+  <!-- Caixa grande de anotações (como na oficial) -->
+  <textarea id="atk-notes" class="atk-notes" rows="8" placeholder=""></textarea>
+
+  <!-- Template para adicionar novas linhas -->
+  <template id="tpl-atk-row">
+    <li class="atk-row">
+      <input class="atk-nome"  type="text"  aria-label="Nome do ataque">
+      <input class="atk-bonus" type="text"  aria-label="Bônus do ataque">
+      <input class="atk-dano"  type="text"  aria-label="Dano e tipo">
+    </li>
+  </template>
+</section>
+
+
+
+
+  <!-- Templates para itens dinâmicos (opcional, para JS usar) -->
+  <template id="tpl-item-inv">
+    <li class="inv-item">
+      <span class="inv-nome"></span>
+      <button type="button" class="btn btn-sm inv-del" aria-label="Remover item">✕</button>
+    </li>
+  </template>
+
+  <template id="tpl-pericia">
+    <li class="pericia">
+      <input type="text" class="pericia-nome" placeholder="Nome da perícia"/>
+      <input type="number" class="pericia-bonus" placeholder="+Bônus" />
+      <button type="button" class="btn btn-sm pericia-del" aria-label="Remover perícia">✕</button>
+    </li>
+  </template>
+
+  <template id="tpl-ataque">
+    <li class="ataque">
+      <input type="text" class="atk-nome" placeholder="Nome do ataque/magia"/>
+      <input type="text" class="atk-bonus" placeholder="Bônus (ex.: +5)"/>
+      <input type="text" class="atk-dano"  placeholder="Dano (ex.: 1d8+3 cortante)"/>
+      <button type="button" class="btn btn-sm atk-del" aria-label="Remover ataque">✕</button>
+    </li>
+  </template>
+
+  <template id="tpl-habilidade">
+    <li class="habilidade">
+      <input type="text" class="hab-nome" placeholder="Nome da habilidade"/>
+      <button type="button" class="btn btn-sm hab-del" aria-label="Remover habilidade">✕</button>
+    </li>
+  </template>
+
+</section>
+
 </body>
 </html>
